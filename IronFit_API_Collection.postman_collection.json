@@ -1,0 +1,695 @@
+{
+  "info": {
+    "name": "IronFit API - Complete Collection",
+    "description": "Complete API collection for IronFit fitness management system with CLIENT, TRAINER, and AUDITOR roles",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"cliente1\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CLIENT Role",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update My Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"nuevo@email.com\",\n  \"phoneNumber\": \"3001234567\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Active Plan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/me/training-plan",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "me", "training-plan"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Routines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/me/routines",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "me", "routines"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Evaluations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/me/evaluations",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "me", "evaluations"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "TRAINER Role",
+      "item": [
+        {
+          "name": "Get My Clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers/me/clients",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers", "me", "clients"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Training Plans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers/me/training-plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers", "me", "training-plans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Routines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers/me/routines",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers", "me", "routines"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Client Compliance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers/me/clients/1/compliance",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers", "me", "clients", "1", "compliance"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AUDITOR Role - User Management",
+      "item": [
+        {
+          "name": "Get All Clients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Trainers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activate Client",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/1/activate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "1", "activate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate Client",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/1/deactivate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "1", "deactivate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activate Trainer",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers/1/activate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers", "1", "activate"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deactivate Trainer",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers/1/deactivate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers", "1", "deactivate"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "AUDITOR Role - Dashboard & Reports",
+      "item": [
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "dashboard", "stats"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Attendance Report (All Filters)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance?startDate=2025-01-01&endDate=2025-12-31&clientId=1&trainerId=2&status=ATTENDED",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reports", "attendance"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-12-31"
+                },
+                {
+                  "key": "clientId",
+                  "value": "1"
+                },
+                {
+                  "key": "trainerId",
+                  "value": "2"
+                },
+                {
+                  "key": "status",
+                  "value": "ATTENDED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Attendance Report (By Date)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/attendance?startDate=2025-11-01&endDate=2025-11-30",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reports", "attendance"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2025-11-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2025-11-30"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Client Compliance Report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/compliance/client/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reports", "compliance", "client", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Exercise Compliance Report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reports/compliance/exercises?planId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "reports", "compliance", "exercises"],
+              "query": [
+                {
+                  "key": "planId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CRUD - Clients",
+      "item": [
+        {
+          "name": "Create Client",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Juan\",\n  \"lastName\": \"Pérez\",\n  \"documentType\": \"CC\",\n  \"documentNumber\": \"1234567890\",\n  \"email\": \"juan@example.com\",\n  \"phoneNumber\": \"3001234567\",\n  \"username\": \"juan.perez\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clients",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Client",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Juan\",\n  \"lastName\": \"Pérez Actualizado\",\n  \"email\": \"juan.nuevo@example.com\",\n  \"phoneNumber\": \"3009876543\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/clients/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "clients", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CRUD - Trainers",
+      "item": [
+        {
+          "name": "Create Trainer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"María\",\n  \"lastName\": \"López\",\n  \"documentType\": \"CC\",\n  \"documentNumber\": \"9876543210\",\n  \"email\": \"maria@example.com\",\n  \"phoneNumber\": \"3109876543\",\n  \"username\": \"maria.lopez\",\n  \"password\": \"password123\",\n  \"expertiseIds\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Trainer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"María\",\n  \"lastName\": \"López Actualizada\",\n  \"email\": \"maria.nueva@example.com\",\n  \"phoneNumber\": \"3109999999\",\n  \"expertiseIds\": [1, 2, 3]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/trainers/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainers", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CRUD - Training Plans",
+      "item": [
+        {
+          "name": "Get All Training Plans",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/trainment-plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainment-plans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Training Plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Plan de Fuerza Q1 2025\",\n  \"description\": \"Plan enfocado en ganancia de fuerza\",\n  \"startDate\": \"2025-01-01\",\n  \"endDate\": \"2025-03-31\",\n  \"clientId\": 1,\n  \"trainerId\": 1,\n  \"objectiveId\": 1,\n  \"stateId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/trainment-plans",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "trainment-plans"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CRUD - Routines",
+      "item": [
+        {
+          "name": "Get Routines by Plan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/routines?trainmentPlanId=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "routines"],
+              "query": [
+                {
+                  "key": "trainmentPlanId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Routine",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rutina de Piernas\",\n  \"description\": \"Entrenamiento de tren inferior\",\n  \"trainmentPlanId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/routines",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "routines"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CRUD - Exercises",
+      "item": [
+        {
+          "name": "Get All Exercises",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/exercises",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exercises"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Exercise",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Sentadilla\",\n  \"description\": \"Ejercicio compuesto de piernas\",\n  \"muscularGroupId\": 1,\n  \"categoryId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/exercises",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "exercises"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CRUD - Physical Evaluations",
+      "item": [
+        {
+          "name": "Get Evaluations by Client",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/physical-evaluations/client/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "physical-evaluations", "client", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Physical Evaluation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clientId\": 1,\n  \"trainerId\": 1,\n  \"evaluationDate\": \"2025-11-24\",\n  \"weight\": 75.5,\n  \"bmi\": 24.5,\n  \"bodyFatPercentage\": 18.5,\n  \"muscleMass\": 35.2,\n  \"measurements\": \"Pecho: 95cm, Cintura: 82cm\",\n  \"notes\": \"Progreso positivo\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/physical-evaluations",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "physical-evaluations"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "CRUD - Auditors",
+      "item": [
+        {
+          "name": "Get All Auditors",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auditors",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auditors"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Auditor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Carlos\",\n  \"lastName\": \"Rodríguez\",\n  \"documentType\": \"CC\",\n  \"documentNumber\": \"1122334455\",\n  \"email\": \"carlos@example.com\",\n  \"phoneNumber\": \"3201234567\",\n  \"username\": \"carlos.rodriguez\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auditors",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auditors"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Auditor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Carlos\",\n  \"lastName\": \"Rodríguez Actualizado\",\n  \"email\": \"carlos.nuevo@example.com\",\n  \"phoneNumber\": \"3209999999\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auditors/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auditors", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
