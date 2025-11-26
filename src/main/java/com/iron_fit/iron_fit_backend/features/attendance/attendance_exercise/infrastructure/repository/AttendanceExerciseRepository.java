@@ -9,4 +9,6 @@ public interface AttendanceExerciseRepository extends JpaRepository<AttendanceEx
     List<AttendanceExercise> findByAttendanceId(Long attendanceId);
 
     List<AttendanceExercise> findByRoutineExerciseId(Long routineExerciseId);
+
+    List<AttendanceExercise> findByAttendanceIdAndRoutineExerciseId(Long attendanceId, Long routineExerciseId);
 }
