@@ -30,8 +30,8 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
-                                    @NonNull HttpServletResponse response,
-                                    @NonNull FilterChain filterChain) throws ServletException, IOException {
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         if (request.getCookies() == null) {
             filterChain.doFilter(request, response);
@@ -42,18 +42,28 @@ public class JwtTokenValidator extends OncePerRequestFilter {
             if (cookie.getName().equals("jwt")) {
                 String jwtToken = cookie.getValue();
                 if (jwtToken != null) {
+                    try {
+                        DecodedJWT decodedJWT = jwtUtils.validateToken(jwtToken);
 
-                    DecodedJWT decodedJWT = jwtUtils.validateToken(jwtToken);
+                        String username = jwtUtils.extractUsername(decodedJWT);
+                        String stringAuthorities = jwtUtils.getSpecificClaim(decodedJWT, "authorities").asString();
 
-                    String username = jwtUtils.extractUsername(decodedJWT);
-                    String stringAuthorities = jwtUtils.getSpecificClaim(decodedJWT, "authorities").asString();
+                        Collection<? extends GrantedAuthority> authorities = AuthorityUtils
+                                .commaSeparatedStringToAuthorityList(stringAuthorities);
 
-                    Collection<? extends GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(stringAuthorities);
-
-                    SecurityContext context = SecurityContextHolder.createEmptyContext();
-                    Authentication authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
-                    context.setAuthentication(authenticationToken);
-                    SecurityContextHolder.setContext(context);
+                        SecurityContext context = SecurityContextHolder.createEmptyContext();
+                        Authentication authenticationToken = new UsernamePasswordAuthenticationToken(username, null,
+                                authorities);
+                        context.setAuthentication(authenticationToken);
+                        SecurityContextHolder.setContext(context);
+                    } catch (Exception e) {
+                        // Si la validación falla, limpiar la cookie
+                        Cookie invalidCookie = new Cookie("jwt", null);
+                        invalidCookie.setPath("/");
+                        invalidCookie.setMaxAge(0);
+                        invalidCookie.setHttpOnly(true);
+                        response.addCookie(invalidCookie);
+                    }
                 }
             }
         }

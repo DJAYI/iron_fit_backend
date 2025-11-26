@@ -1,6 +1,9 @@
 spring:
   application:
     name: iron_fit_backend
+  devtools:
+    restart:
+      exclude: com/github/javafaker/**
   datasource:
     url: jdbc:mysql://localhost:3306/iron_fit_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
     username: root

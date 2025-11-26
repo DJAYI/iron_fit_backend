@@ -1,0 +1,93 @@
+{
+  "info": {
+    "name": "Database Seeder",
+    "description": "Endpoints for seeding the IronFit database with test data",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Seed Database - Custom Quantity",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/seeder/seed?quantity=1000",
+          "host": ["{{base_url}}"],
+          "path": ["api", "seeder", "seed"],
+          "query": [
+            {
+              "key": "quantity",
+              "value": "1000",
+              "description": "Number of records per entity (1-10000)"
+            }
+          ]
+        },
+        "description": "Seeds the database with a custom number of records per entity. Requires AUDITOR role."
+      },
+      "response": []
+    },
+    {
+      "name": "Seed Database - Small (100)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/seeder/seed/small",
+          "host": ["{{base_url}}"],
+          "path": ["api", "seeder", "seed", "small"]
+        },
+        "description": "Seeds the database with 100 records per entity. Good for quick tests."
+      },
+      "response": []
+    },
+    {
+      "name": "Seed Database - Medium (500)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/seeder/seed/medium",
+          "host": ["{{base_url}}"],
+          "path": ["api", "seeder", "seed", "medium"]
+        },
+        "description": "Seeds the database with 500 records per entity. Good for development."
+      },
+      "response": []
+    },
+    {
+      "name": "Seed Database - Large (1000)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/seeder/seed/large",
+          "host": ["{{base_url}}"],
+          "path": ["api", "seeder", "seed", "large"]
+        },
+        "description": "Seeds the database with 1000 records per entity. Good for testing and demos."
+      },
+      "response": []
+    },
+    {
+      "name": "Seed Database - XLarge (5000)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/seeder/seed/xlarge",
+          "host": ["{{base_url}}"],
+          "path": ["api", "seeder", "seed", "xlarge"]
+        },
+        "description": "Seeds the database with 5000 records per entity. Good for performance testing."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
