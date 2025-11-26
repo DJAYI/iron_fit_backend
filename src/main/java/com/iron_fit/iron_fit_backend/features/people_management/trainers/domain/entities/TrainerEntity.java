@@ -21,7 +21,7 @@ public class TrainerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trainer_id")
-    private int id;
+    private Long id;
 
     private String firstName;
     private String lastName;
@@ -36,6 +36,6 @@ public class TrainerEntity {
     UserEntity user;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-            @JoinTable(name = "trainers_expertises")
+    @JoinTable(name = "trainers_expertises")
     Set<TrainerExpertise> expertises;
 }

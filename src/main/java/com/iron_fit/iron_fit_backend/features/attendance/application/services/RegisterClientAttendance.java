@@ -1,5 +1,6 @@
 package com.iron_fit.iron_fit_backend.features.attendance.application.services;
 
+import com.iron_fit.iron_fit_backend.features.attendance.domain.dto.requests.RegisterAttendanceDto;
 import com.iron_fit.iron_fit_backend.features.attendance.domain.dto.response.AttendanceResponseDto;
 import com.iron_fit.iron_fit_backend.features.attendance.domain.entities.AttendanceEntity;
 import com.iron_fit.iron_fit_backend.features.attendance.infrastructure.repository.AttendanceRepository;
@@ -27,35 +28,48 @@ public class RegisterClientAttendance {
     private GetClientFromSession getClientFromSession;
 
     @PreAuthorize("hasRole('CLIENT')")
-    public HashMap<String, Object> execute() {
+    public HashMap<String, Object> execute(RegisterAttendanceDto dto) {
         Long authenticatedClientId = getClientFromSession.execute();
 
-        if (authenticatedClientId == null) return new HashMap<String, Object>() {{
-            put("error", true);
-            put("message", "Client ID could not be found");
-        }};
+        if (authenticatedClientId == null)
+            return new HashMap<String, Object>() {
+                {
+                    put("error", true);
+                    put("message", "Client ID could not be found");
+                }
+            };
 
         Optional<ClientEntity> clientOptional = clientRepository.findById(authenticatedClientId);
 
-        if (clientOptional.isEmpty()) return new HashMap<String, Object>() {{
-            put("error", true);
-            put("message", "Client was not found");
-        }};
+        if (clientOptional.isEmpty())
+            return new HashMap<String, Object>() {
+                {
+                    put("error", true);
+                    put("message", "Client was not found");
+                }
+            };
 
         try {
             AttendanceEntity attendanceEntity = new AttendanceEntity();
             attendanceEntity.setClient(clientOptional.get());
+            attendanceEntity.setStatus(dto.status());
+            attendanceEntity.setObservations(dto.observations());
+            attendanceEntity.setCompleted(false);
             attendanceRepository.save(attendanceEntity);
 
-            return new HashMap<String, Object>() {{
-                put("message", "Attendance was successfully registered");
-                put("attendance", AttendanceResponseDto.fromEntity(attendanceEntity));
-            }};
+            return new HashMap<String, Object>() {
+                {
+                    put("message", "Attendance was successfully registered");
+                    put("attendance", AttendanceResponseDto.fromEntity(attendanceEntity));
+                }
+            };
         } catch (Exception e) {
-            return new HashMap<String, Object>() {{
-                put("error", true);
-                put("message", "Error registering attendance");
-            }};
+            return new HashMap<String, Object>() {
+                {
+                    put("error", true);
+                    put("message", "Error registering attendance");
+                }
+            };
         }
     }
 }

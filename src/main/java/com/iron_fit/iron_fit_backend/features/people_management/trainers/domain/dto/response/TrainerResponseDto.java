@@ -7,38 +7,32 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record TrainerResponseDto(
-        @NotBlank(message = "El nombre es obligatorio")
-        String firstName,
+        Long trainerId,
 
-        @NotBlank(message = "El apellido es obligatorio")
-        String lastName,
+        @NotBlank(message = "El nombre es obligatorio") String firstName,
 
-        @NotNull(message = "El tipo de documento es obligatorio")
-        DocumentTypeEnum documentType,
+        @NotBlank(message = "El apellido es obligatorio") String lastName,
 
-        @NotBlank(message = "El número de documento es obligatorio")
-        String documentNumber,
+        @NotNull(message = "El tipo de documento es obligatorio") DocumentTypeEnum documentType,
 
-        @Email(message = "El email debe tener un formato válido")
-        @NotBlank(message = "El email es obligatorio")
-        String email,
+        @NotBlank(message = "El número de documento es obligatorio") String documentNumber,
+
+        @Email(message = "El email debe tener un formato válido") @NotBlank(message = "El email es obligatorio") String email,
 
         String phoneNumber,
 
         // Campos del usuario
-        @NotBlank(message = "El username es obligatorio")
-        String username
-) {
+        @NotBlank(message = "El username es obligatorio") String username) {
 
     static public TrainerResponseDto fromEntity(TrainerEntity trainerEntity) {
         return new TrainerResponseDto(
+                trainerEntity.getId(),
                 trainerEntity.getFirstName(),
                 trainerEntity.getLastName(),
                 trainerEntity.getDocumentType(),
                 trainerEntity.getDocumentNumber(),
                 trainerEntity.getEmail(),
                 trainerEntity.getPhoneNumber(),
-                trainerEntity.getUser().getUsername()
-        );
+                trainerEntity.getUser().getUsername());
     }
 }
