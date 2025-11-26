@@ -14,24 +14,28 @@ import java.util.List;
 public class ListClientsService {
 
     @Autowired
-    private ClientRepository auditorRepository;
+    private ClientRepository clientRepository;
 
-    @PreAuthorize("hasRole('AUDITOR')")
-    public HashMap<String, Object> execute(){
+    @PreAuthorize("hasAnyRole('AUDITOR', 'TRAINER')")
+    public HashMap<String, Object> execute() {
         try {
 
-            List<ClientEntity> auditorEntities = auditorRepository.findAll();
-            List<ClientResponseDto> clients = auditorEntities.stream().map(ClientResponseDto::fromEntity).toList();
+            List<ClientEntity> clientEntities = clientRepository.findAll();
+            List<ClientResponseDto> clients = clientEntities.stream().map(ClientResponseDto::fromEntity).toList();
 
-            return new HashMap<String, Object>(){{
-                put("clients", clients);
-                put("message", "Clients list has been successfully retrieved");
-            }};
+            return new HashMap<String, Object>() {
+                {
+                    put("clients", clients);
+                    put("message", "Clients list has been successfully retrieved");
+                }
+            };
         } catch (Exception e) {
-            return new HashMap<String, Object>(){{
-                put("message", e.getMessage());
-                put("error", true);
-            }};
+            return new HashMap<String, Object>() {
+                {
+                    put("message", e.getMessage());
+                    put("error", true);
+                }
+            };
         }
     }
 }

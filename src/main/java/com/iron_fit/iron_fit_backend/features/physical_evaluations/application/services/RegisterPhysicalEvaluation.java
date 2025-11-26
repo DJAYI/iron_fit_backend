@@ -2,6 +2,7 @@ package com.iron_fit.iron_fit_backend.features.physical_evaluations.application.
 
 import com.iron_fit.iron_fit_backend.features.people_management.clients.domain.entities.ClientEntity;
 import com.iron_fit.iron_fit_backend.features.people_management.clients.infrastructure.repository.ClientRepository;
+import com.iron_fit.iron_fit_backend.features.people_management.trainers.application.services.GetTrainerFromSession;
 import com.iron_fit.iron_fit_backend.features.people_management.trainers.domain.entities.TrainerEntity;
 import com.iron_fit.iron_fit_backend.features.people_management.trainers.infrastructure.repository.TrainerRepository;
 import com.iron_fit.iron_fit_backend.features.physical_evaluations.domain.dto.requests.RegisterPhysicalEvaluationDto;
@@ -25,14 +26,23 @@ public class RegisterPhysicalEvaluation {
     @Autowired
     private TrainerRepository trainerRepository;
 
+    @Autowired
+    private GetTrainerFromSession getTrainerFromSession;
+
     public HashMap<String, Object> execute(RegisterPhysicalEvaluationDto dto) {
         try {
+            // Get authenticated trainer ID from session
+            Long trainerId = getTrainerFromSession.execute();
+            if (trainerId == null) {
+                throw new RuntimeException("Authenticated user is not associated with a trainer");
+            }
+
             // Validate client exists
             ClientEntity client = clientRepository.findById(dto.clientId())
                     .orElseThrow(() -> new RuntimeException("Client not found"));
 
             // Validate trainer exists
-            TrainerEntity trainer = trainerRepository.findById(Long.valueOf(dto.trainerId()))
+            TrainerEntity trainer = trainerRepository.findById(trainerId)
                     .orElseThrow(() -> new RuntimeException("Trainer not found"));
 
             // Create evaluation

@@ -16,22 +16,26 @@ public class ListTrainersService {
     @Autowired
     private TrainerRepository trainerRepository;
 
-    @PreAuthorize("hasRole('AUDITOR')")
-    public HashMap<String, Object> execute(){
+    @PreAuthorize("hasAnyRole('AUDITOR', 'TRAINER')")
+    public HashMap<String, Object> execute() {
         try {
 
             List<TrainerEntity> trainerEntity = trainerRepository.findAll();
             List<TrainerResponseDto> trainers = trainerEntity.stream().map(TrainerResponseDto::fromEntity).toList();
 
-            return new HashMap<String, Object>(){{
-                put("trainers", trainers);
-                put("message", "Trainers list has been successfully retrieved");
-            }};
+            return new HashMap<String, Object>() {
+                {
+                    put("trainers", trainers);
+                    put("message", "Trainers list has been successfully retrieved");
+                }
+            };
         } catch (Exception e) {
-            return new HashMap<String, Object>(){{
-                put("message", e.getMessage());
-                put("error", true);
-            }};
+            return new HashMap<String, Object>() {
+                {
+                    put("message", e.getMessage());
+                    put("error", true);
+                }
+            };
         }
     }
 }
